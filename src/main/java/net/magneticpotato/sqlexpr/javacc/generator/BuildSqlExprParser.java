@@ -12,7 +12,6 @@ package net.magneticpotato.sqlexpr.javacc.generator;
 public class BuildSqlExprParser 
 {
     // Grammar file pathname relative to project directory.
-    //public static final String DEFAULT_GRAMMAR_FILE = "src/main/resources/SelectorParser.jj";
     public static final String DEFAULT_GRAMMAR_FILE = "src/main/resources/SqlExprParser.jj";
     
     // Run the javacc parser generator to create the sql expression language.
