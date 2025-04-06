@@ -22,7 +22,7 @@ The language is a subset of the standard SQL expression language used in WHERE c
 >       boolean b = SqlExprEvaluator.match(sqlText, props);
 >       assert b;  // b is true
 
-
+See the test programs in the `src/test/java` subtree for more examples.
 
 ## Implementation and Syntax
 SqlExprParser shamelessly borrows open source code from [Apache ActiveMQ](https://activemq.apache.org/) and the Texas Advanced Computing Center's [Tapis](https://github.com/tapis-project) project.  In particular, implementations of ActiveMQ's [BooleanExpression](https://activemq.apache.org/components/classic/documentation/maven/apidocs/org/apache/activemq/filter/BooleanExpression.html) are used to evaluate SqlExprParser expressions.  SqlExprParser is generated using the [JavaCC](https://javacc.github.io/javacc/) parser generator.
@@ -46,7 +46,7 @@ Parentheses can be used to change the default precedence.  The parser supports d
     
 Instructions assume Linux or a Unix-like operating system.
 
-Building SqlExprParser is a two step process, both of which are automated using Maven and the SqlExprParser pom.xml file.  From SqlExprParser's top-level directory, simple issue this command on the command line to compile the code and package it in *target/sqlexprlib.jar*: 
+Building SqlExprParser is a two step process, both of which are automated using Maven (3.9.9+) and the SqlExprParser pom.xml file.  From SqlExprParser's top-level directory, simple issue this command on the command line to compile the code and package it in *target/sqlexprlib.jar*: 
 
 >       mvn clean install
   
@@ -63,4 +63,6 @@ Alternatively, you can manually assign the dependencies from the pom.xml file to
 >       export CLASSPATH=<path-to-ActiveMQ>/activemq-client-6.1.6.jar:<path-to-JavaCC>/javacc.jar
 >       scripts/javacc SqlExprParser.jj
 
+## Support
 
+Support is on a best effort basis by creating GitHub issues on this repository.  The developer/maintainer can be contacted at *rcdev58 at pm.me*.  
