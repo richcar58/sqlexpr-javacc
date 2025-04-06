@@ -65,4 +65,8 @@ Alternatively, you can manually assign the dependencies from the pom.xml file to
 
 ## Support
 
-Support is on a best effort basis by creating GitHub issues on this repository.  The developer/maintainer can be contacted at *rcdev58 at pm.me*.  
+Support is on a best effort basis by creating GitHub issues on this repository.  The developer/maintainer can be contacted at *rcdev58 at pm.me*.
+
+## Licenses
+
+SqlExprParser is licensed under the MIT license in the top-level directory.  Licenses it uses are in the `licenses` directory.  
