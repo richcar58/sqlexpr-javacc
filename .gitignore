@@ -6,7 +6,7 @@
 # Test 
 /test-output/
 
-# Eclipse files
+# Eclipse files or directories
 .classpath
 .project
 .settings
