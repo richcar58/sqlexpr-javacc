@@ -69,4 +69,4 @@ Support is on a best effort basis by creating GitHub issues on this repository. 
 
 ## Licenses
 
-SqlExprParser is licensed under the MIT license in the top-level directory.  Licenses it uses are in the `licenses` directory.  
+SqlExprParser is licensed under the MIT license.  
