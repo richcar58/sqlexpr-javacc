@@ -52,7 +52,7 @@ Building SqlExprParser is a two step process, both of which are automated using 
   
 The above Maven command will also install sqlexpr-javacc in your local Maven (~/.m2) repository.  Compilation assumes Java 21 or above, but the compiled class files will execute on JVMs supporting Java 17 or above.  
   
-The first step in the build uses JavaCC to generate parser source code based on the language defined in *SqlExprParser.jj*.  The output of this step resides in the `net.magneticpotato.sqlexpr.javacc.parser` package and is saved in SqlExprParser's GitHub repository with all other source code.  This parser code does not normally need to be regenerated, but can be if *SqlExprParser.jj* content or the JavaCC options used to generate the code change.
+The first step in the build uses JavaCC to generate parser source code based on the language defined in [SqlExprParser.jj](https://github.com/richcar58/sqlexpr-javacc/blob/main/src/main/resources/SqlExprParser.jj).  The output of this step resides in the [net.magneticpotato.sqlexpr.javacc.parser](https://github.com/richcar58/sqlexpr-javacc/tree/main/src/main/java/net/magneticpotato/sqlexpr/javacc/parser) package and is saved in SqlExprParser's GitHub repository with all other source code.  This parser code does not normally need to be regenerated, but can be if *SqlExprParser.jj* content or the JavaCC options used to generate the code change.
 
 ### Other Ways to Generate Parser Source Code
 
