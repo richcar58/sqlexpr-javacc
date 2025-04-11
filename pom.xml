@@ -52,6 +52,82 @@
         </dependency>
 	</dependencies>
 	
+    <distributionManagement>
+  		<snapshotRepository>
+    		<id>ossrh</id>
+    		<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+ 		 </snapshotRepository>
+  		<repository>
+    		<id>ossrh</id>
+    		<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+  		</repository>
+	</distributionManagement>
+	
+	<!-- Use release profile for publishing to Maven Central -->
+	<profiles>
+  		<profile>
+    		<id>release</id>
+    		<build>
+    			<plugins>
+    				<!-- Generate sources jar -->
+    				<plugin>
+      					<groupId>org.apache.maven.plugins</groupId>
+      					<artifactId>maven-source-plugin</artifactId>
+      					<version>3.3.1</version>
+      						<executions>
+        						<execution>
+          							<id>attach-sources</id>
+          							<goals>
+            							<goal>jar-no-fork</goal>
+          							</goals>
+        						</execution>
+      						</executions>
+    				</plugin>
+    
+    				<!-- Generate javadoc jar -->
+    				<plugin>
+      					<groupId>org.apache.maven.plugins</groupId>
+      					<artifactId>maven-javadoc-plugin</artifactId>
+      					<version>3.11.2</version>
+      					<executions>
+        					<execution>
+          						<id>attach-javadocs</id>
+          						<goals>
+            						<goal>jar</goal>
+          						</goals>
+        					</execution>
+      					</executions>
+    				</plugin>  
+    		
+    				<!-- Sign artifacts using GPG -->
+    				<plugin>
+      					<groupId>org.apache.maven.plugins</groupId>
+      					<artifactId>maven-gpg-plugin</artifactId>
+      					<version>3.2.7</version>
+      						<executions>
+        						<execution>
+          							<id>sign-artifacts</id>
+          							<phase>verify</phase>
+          							<goals>
+            							<goal>sign</goal>
+          							</goals>
+          							<configuration>
+            							<keyname>${gpg.keyname}</keyname>
+            							<passphraseServerId>${gpg.keyname}</passphraseServerId>
+            							<!-- Needed for gpg version 2.1 or more -->
+            							<gpgArguments>
+    										<arg>--pinentry-mode</arg>
+    										<arg>loopback</arg>
+  										</gpgArguments>
+          							</configuration>
+        						</execution>
+     						</executions>
+    				</plugin>
+    			</plugins>
+    		</build>
+  		</profile>
+	</profiles>
+
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
 
@@ -64,57 +140,57 @@
                 <version>3.2.0</version>
             </plugin>
             
-        <!-- Compile the builder program that calls the parser generator -->    
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.12.1</version>
-                    <configuration>
+        	<!-- Compile the builder program that calls the parser generator -->    
+        	<plugin>
+            	<groupId>org.apache.maven.plugins</groupId>
+            	<artifactId>maven-compiler-plugin</artifactId>
+            	<version>3.12.1</version>
+                   	 <configuration>
                         <!-- The release tells maven what version of -->
                         <!-- the Java compiler to use internally. -->
                         <release>${maven-compiler-plugin-release}</release>
                         <source>${java-source.version}</source>
                         <target>${java-target.version}</target>
                     </configuration>
-            <executions>
-                <execution>
-                    <id>compile-generator</id>
-                    <phase>generate-sources</phase>
-                    <goals>
-                         <goal>compile</goal>
-                    </goals>
-                    <configuration>
-                        <includes>
-                            <include>net/magneticpotato/sqlexpr/javacc/generator/*.java</include>
-                        </includes>
-                        <excludes>
-                            <exclude>net/magneticpotato/sqlexpr/javacc</exclude>
-                        </excludes>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>            
+           		<executions>
+                	<execution>
+                    	<id>compile-generator</id>
+                    	<phase>generate-sources</phase>
+                    	<goals>
+                         	<goal>compile</goal>
+                    	</goals>
+                    	<configuration>
+                        	<includes>
+                            	<include>net/magneticpotato/sqlexpr/javacc/generator/*.java</include>
+                        	</includes>
+                        	<excludes>
+                            	<exclude>net/magneticpotato/sqlexpr/javacc</exclude>
+                        	</excludes>
+                    	</configuration>
+                	</execution>
+            	</executions>
+        	</plugin>            
      
-        <!-- Run the builder program to generate the parser source files -->
-        <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>3.1.1</version>
-            <executions>
-                <execution>
-                    <id>generate-codes</id>
-                    <goals>
-                        <goal>java</goal>
-                    </goals>
-                    <phase>process-sources</phase>
-                    <configuration>
-                        <mainClass>net.magneticpotato.sqlexpr.javacc.generator.BuildSqlExprParser</mainClass>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
+        	<!-- Run the builder program to generate the parser source files -->
+        	<plugin>
+            	<groupId>org.codehaus.mojo</groupId>
+            	<artifactId>exec-maven-plugin</artifactId>
+            	<version>3.1.1</version>
+            	<executions>
+                	<execution>
+                    	<id>generate-codes</id>
+                    	<goals>
+                        	<goal>java</goal>
+                    	</goals>
+                   	 	<phase>process-sources</phase>
+                    	<configuration>
+                        	<mainClass>net.magneticpotato.sqlexpr.javacc.generator.BuildSqlExprParser</mainClass>
+                    	</configuration>
+                	</execution>
+            	</executions>
+        	</plugin>
 
-        <plugin>
+        	<plugin>
                 <!-- The version is set in the parent pom -->
                 <!-- SKIPPING all tests.                  -->
                 <groupId>org.apache.maven.plugins</groupId>
@@ -124,7 +200,21 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-        </plugins>
+
+			<!-- Maven Centrol Plugin -->
+    		<plugin>
+      			<groupId>org.sonatype.plugins</groupId>
+      			<artifactId>nexus-staging-maven-plugin</artifactId>
+      			<version>1.7.0</version>
+     			<extensions>true</extensions>
+      			<configuration>
+        			<serverId>ossrh</serverId>
+        			<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+        			<autoReleaseAfterClose>true</autoReleaseAfterClose>
+      			</configuration>
+    		</plugin> 
+    		
+    	</plugins>
 
         <finalName>sqlexprlib</finalName>
     </build>
