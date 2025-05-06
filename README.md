@@ -42,6 +42,10 @@ Parentheses can be used to change the default precedence.  The parser supports d
 >       // For the LIKE to evaluate to true, the value of firstName must start with "George_"
 >       "firstName LIKE 'George#_%' ESCAPE '#'";
 
+**Alternate Implementation**
+
+The [sqlexpr-congocc](https://github.com/richcar58/sqlexpr-congocc) parser recognizes the same language as sqlexpr-javacc, but was generated using the [CongoCC](https://parsers.org/) parser generator.  CongoCC derives from JavaCC and is still being actively maintained.  The only behavioral difference between the two generated parsers is that sqlexpr-javacc caches recently parsed expressions whereas sqlexpr-congocc does not.  Unless this built-in caching is wanted, sqlexpr-congocc will benefit most from future development. 
+
 ## Building SqlExprParser
     
 Instructions assume Linux or a Unix-like operating system.
