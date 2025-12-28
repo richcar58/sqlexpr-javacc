@@ -218,4 +218,23 @@ public class SqlExprEvaluatorTest
         b = SqlExprEvaluator.match(sqlText, props);
         Assert.assertFalse(b);  
 	}
+	
+    /* ---------------------------------------------------------------------- */
+    /* evalTest2:                                                             */
+    /* ---------------------------------------------------------------------- */
+	/** Tests type restrictions for various operators. */
+	@Test(enabled=false)  // Set to true to run tests.
+	public void evalTest2() throws SqlExprException
+	{
+		// Reusable map.
+		var props = new HashMap<String,Object>();
+		String sqlText = "price IN (10, 20)";
+    
+		// The match call will fail with a parse error:
+		// Encountered " <DECIMAL_LITERAL> "10 "" at line 1, column 11. Was expecting: <STRING_LITERAL> ...
+		// ** Conclusion: IN can only take String list elements.
+		props.put("price", 10);
+		var b = SqlExprEvaluator.match(sqlText, props);
+		Assert.assertFalse(b); 
+	}
 }
